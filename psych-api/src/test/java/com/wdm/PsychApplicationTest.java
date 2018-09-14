@@ -7,7 +7,7 @@ import org.junit.Test;
 /**
  * Unit test for simple PsychApplication.
  */
-public class AppTest 
+public class PsychApplicationTest
 {
     /**
      * Rigorous Test :-)
