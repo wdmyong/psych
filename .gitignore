@@ -1,0 +1,13 @@
+*.iml
+.iml
+.idea
+.classpath
+.project
+.settings
+/target
+/psych-data/*.iml
+/psych-data/target
+/psych-task/*.iml
+/psych-task/target
+/psych-api/*.iml
+/psych-api/target
