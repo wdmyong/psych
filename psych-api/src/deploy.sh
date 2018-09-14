@@ -1,0 +1,1 @@
+mvn -DincludeScope=runtime -DexcludeScope=provided clean package dependency:copy-dependencies -Dcheckstyle.skip=true
