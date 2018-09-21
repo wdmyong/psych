@@ -10,6 +10,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <modules>
         <module>psych-data</module>
+        <module>psych-service</module>
         <module>psych-task</module>
         <module>psych-api</module>
     </modules>
