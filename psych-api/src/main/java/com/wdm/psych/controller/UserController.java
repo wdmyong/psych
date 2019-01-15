@@ -23,7 +23,9 @@ public class UserController {
     @RequestMapping("/{id}")
     Map<String, Object> byId(@PathVariable("id") long id) {
         Map<String, Object> result = Maps.newHashMap();
+        long now = System.currentTimeMillis();
         result.put(String.valueOf(id), userService.getById(id));
+        result.put("cost", System.currentTimeMillis() - now);
         return result;
     }
 }

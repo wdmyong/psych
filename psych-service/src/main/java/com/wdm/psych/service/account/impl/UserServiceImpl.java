@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.wdm.psych.data.dao.UserDao;
@@ -33,6 +32,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    // 异步相关的刷新设置也需要用户请求来触发实现
     LoadingCache<Long, User> userLocalCache = CacheBuilder.newBuilder() //
             /**
              * 达到指定时间的访问会重写
@@ -48,18 +48,21 @@ public class UserServiceImpl implements UserService {
              * com.google.common.cache.LocalCache#isExpired(com.google.common.cache.ReferenceEntry, long)
              * 会这样判断(now - entry.getAccessTime() >= expireAfterAccessNanos;
              */
-        .expireAfterAccess(10, TimeUnit.SECONDS) //
+        .expireAfterAccess(20, TimeUnit.SECONDS) //
         .build(new CacheLoader<Long, User>() {
             @Override
             public User load(@Nonnull Long id) throws Exception {
                 return userDao.getById(id);
             }
 
+            /*
             @Override
             public ListenableFuture<User> reload(@Nonnull Long id, User oldValue) throws Exception {
                 // 自己启动一个线程才会异步refresh
                 return singleThreadExecutor.submit(() -> userDao.getById(id));
             }
+            */
+
         });
 
     @Override
